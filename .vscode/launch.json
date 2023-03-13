@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+  
+        {
+            "name": "Python: Django",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/app/manage.py",
+            "args": [
+                "runserver"
+            ],
+            "django": true,
+            "justMyCode": false
+        },
+        {
+          "name": "Test",
+          "type": "python",
+          "request": "test",
+          "console": "internalConsole",
+          "justMyCode": false
+        }
+    ]
+  }
+  
