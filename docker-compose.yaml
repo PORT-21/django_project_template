@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: local.Dockerfile
+      args:
+        VARIANT: "3.10"
+        INSTALL_NODE: "false"
+        NODE_VERSION: "lts/*"
+        USER_UID: 1000
+        USER_GID: 1000
+
+    volumes:
+      - .:/workspace:cached
+
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+
+    user: vscode
+
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres
+      PGPASSWORD: postgres
+      # PRE_COMMIT_HOME: 
+
+  postgres:
+    image: postgres:14.2-alpine
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: postgres
+
+volumes:
+  postgres-data:
