@@ -9,11 +9,8 @@ RUN apt-get update && \
     apt-get purge -y --auto-remove -o APT:AutoRemove:RecommendsImportant=false && \
     rm -rf /var/lib/apt/lists/*
 
-RUN pip install poetry && \
-    poetry config virtualenvs.create false
-
-COPY ./pyproject.toml ./poetry.lock /app/
-RUN poetry install --no-root --no-dev
+COPY ./requirements.txt .
+RUN pip install -r requirements.txt 
 
 COPY ./ /app/
-RUN python manage.py collectstatic --no-input
+# RUN python manage.py collectstatic --no-input
